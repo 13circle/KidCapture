@@ -1,0 +1,13 @@
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyBLNce3ebhVICkVUher6jCJs1LwzDjax2M",
+		authDomain: "kidcapture-b1063.firebaseapp.com",
+		databaseURL: "https://kidcapture-b1063.firebaseio.com",
+		projectId: "kidcapture-b1063",
+		storageBucket: "kidcapture-b1063.appspot.com",
+		messagingSenderId: "118770514230"
+	};
+	firebase.initializeApp(config);
+</script>
