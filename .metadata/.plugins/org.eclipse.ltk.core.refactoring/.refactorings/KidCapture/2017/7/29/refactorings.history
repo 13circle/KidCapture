@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;css&apos; to &apos;KidCapture&apos;" description="Move &apos;css&apos; to &apos;KidCapture&apos;" destination="/KidCapture" element1="/bootstrap-3.3.2-dist/css" element2="/bootstrap-3.3.2-dist/fonts" element3="/bootstrap-3.3.2-dist/js" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="3" stamp="1500464271669" updateReferences="true"/>
+</session>
