@@ -370,7 +370,7 @@
 					'msg-error' : 'Wrong login credentials!',
 					'useAJAX' : true,
 				};
-				
+
 				// Login Form
 				//----------------------------------------------
 				// Validation
@@ -391,7 +391,6 @@
 						// If you don't want to use AJAX, remove this
 						id_passWord_vaildate($(this));
 						//dummy_submit_form($(this));
-						
 
 						// Cancel the normal submission.
 						// If you don't want to use AJAX, remove this
@@ -406,36 +405,41 @@
 					$form.find('.login-form-main-message').removeClass('show error success').html('');
 				}
 
-				function id_passWord_vaildate(){
+				function id_passWord_vaildate($form) {
 					var query = firebase.database().ref('UserInfo/');
 					var ID = document.getElementById("lg_username").value;
 					var PassWord = document.getElementById("lg_password").value;
-					var idIdentifyFlag = 0;
-					
-					query.on('child_added', function(snapshot){
+					var idIdentifyFlag;
+
+					query.on('child_added', function(snapshot) {
 						var IDsnapshot = snapshot.child('ID');
 						var PassWordsnapshot = snapshot.child('PassWord');
 
-						if(IDsnapshot.val() == ID){
-							if(PassWordsnapshot.val() == PassWord){
-								alert("로그인 되셨습니다.");
-								idIdentifyFlag = 1;
-							}else{
+						if (IDsnapshot.val() == ID) {
+							if (PassWordsnapshot.val() == PassWord) {
+								//alert("로그인 되셨습니다.");
+								//alert(idIdentifyFlag);
+								if ($form.valid()) {
+									form_loading($form);
+									location.replace("kidcapture_registration.html");
+								}
+							} else if (PassWordsnapshot.val() != PassWord) {
+								//alert(idIdentifyFlag);
 								idIdentifyFlag = 0;
 							}
 						}
-						
-						//alert(IDsnapshot.val());
-						//alert(snapshot.key);
-						/*snapshot.forEach(function(childSnapshot){
-							var key = childSnapshot.key;
-							alert(key);
-						});*/
 					});
-					
+
+					//alert(idIdentifyFlag);
 					//query안에서 처리해주면 여러번 경고창이뜨기 때문에 flag 값을 줘가지고 아이디 비밀번호 틀린거 있나 없나 체크해줌.
-					if(idIdentifyFlag == 0){
-						alert("아이디나 비밀번호가 틀리셨습니다.");
+					if (idIdentifyFlag != 1) {
+						if ($form.valid()) {
+							form_loading($form);
+
+							setTimeout(function() {
+								form_failed($form);
+							}, 2000);
+						}
 					}
 				}
 
@@ -456,15 +460,15 @@
 				// Dummy Submit Form (Remove this)
 				//----------------------------------------------
 				// This is just a dummy form submission. You should use your AJAX function or remove this function if you are not using AJAX.
-				function dummy_submit_form($form) {
-					if ($form.valid()) {
-						form_loading($form);
+				/*function dummy_submit_form($form) {
+				 if ($form.valid()) {
+				 form_loading($form);
 
-						setTimeout(function() {
-							form_success($form);
-						}, 2000);
-					}
-				}
+				 setTimeout(function() {
+				 form_failed($form);
+				 }, 2000);
+				 }
+				 }*/
 
 			})(jQuery);
 		</script>
