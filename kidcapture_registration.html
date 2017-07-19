@@ -68,7 +68,6 @@
 		
 		imgButton.addEventListener('change', function(e) {
 			var img = e.target.files[0];
-
 			var storageRef = firebase.storage().ref('KinCapture/' + img.name);
 			
 			task = storageRef.put(img);
@@ -97,6 +96,7 @@
 			var ImgName = "";
 			var strs = [ ID, MyName, PassWord, PhoneNumber, StudentName ];
 		
+			
 			for (var str in strs) { 
 				if (str.length == 0) {
 					//TODO : Delete the file in the storage
