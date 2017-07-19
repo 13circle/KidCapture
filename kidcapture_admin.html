@@ -6,7 +6,15 @@
 	</head>
 	<body>
 		
-		This sentense is just for a test
+		<table id="userTable" border="1" style="width:100%">
+			<tr>
+				<td><b>ID</b></td>
+				<td><b>User</b></td>
+				<td><b>Student Name</b></td>
+				<td><b>Phone #</b></td>
+				<td><b>Picture</b></td>
+			</tr>
+		</table>
 	
 		<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 		<script>
@@ -22,6 +30,19 @@
 			firebase.initializeApp(config);
 			
 			//TODO: Search the database to uplaod user data on the web
+			var table = document.getElementById('userTable');
+			var dbRefTable = firebase.database().ref().child('UserInfo');
+			var query = dbRefTable.orderByKey();
+			query.once('value').then(function(snapshot) {
+				snapshot.forEach(function(childSnapshot) {
+					var key = childSnapshot.key;
+					var childData = childSnapshot.val();
+					
+					table.insertRow(table.rows.length);
+					// TODO : Synchronize User Information to the table
+					// >> INCOMPLETE
+				});
+			});
 			
 		</script>
 	</body>
