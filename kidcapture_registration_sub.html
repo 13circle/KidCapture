@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>KidCapture Web Console - Registration</title>
+		<style>
+			ul{
+				list-style:none; /* dot 삭제*/
+			}  
+			label{
+				width:110px; /*label 간격조절*/
+				display:inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<form>
+			<fieldset>
+				<legend>회원가입</legend>
+				<ul>
+					<li>
+						<label for="user_id">아이디</label>
+					    <input type="text" id="user_id">
+					</li>
+					<li>
+						<label for="user_pwd">비밀번호</label>
+						<input type="password" id="user_pwd">
+					</li>
+					<li>
+						<label for="user_name">사용자명</label>
+						<input type="text" id="user_name">
+					</li>
+					<li>
+						<label for="user_phone">학생명</label>
+					    <input type="text" id="student_name">
+					</li>
+					<li>
+						<label for="user_email">연락처</label>
+						<input type="text" id="phone#">
+					</li>
+					<li>
+						<input type="file" accept="image/*" value="upload" id="imgButton" />
+						<progress value="0" max="100" id="uploader">0%</progress>
+					</li>
+					<li>
+						<button onclick="writeUserData()">가입</button>
+					</li>
+				</ul>
+			 </fieldset>
+		</form>
+		
+	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBLNce3ebhVICkVUher6jCJs1LwzDjax2M",
+			authDomain: "kidcapture-b1063.firebaseapp.com",
+			databaseURL: "https://kidcapture-b1063.firebaseio.com",
+			projectId: "kidcapture-b1063",
+			storageBucket: "kidcapture-b1063.appspot.com",
+			messagingSenderId: "118770514230"
+		};
+		firebase.initializeApp(config);
+		
+		var uploader = document.getElementById('uploader');
+		var imgButton = document.getElementById('imgButton');
+		
+		imgButton.addEventListener('change', function(e) {
+			var img = e.target.files[0];
+			var storageRef = firebase.storage().ref('KinCapture/' + img.name);
+			
+			task = storageRef.put(img);
+			task.on('state_changed',
+				function progress(snapshot) {
+					var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					uploader.value = percentage;
+				},
+				
+				function error(err) {
+					//
+				},
+				
+				function complete() {
+					//
+				}
+			);
+		});
+		
+		function writeUserData() {
+			var ID = document.getElementById('user_id').value;
+			var MyName = document.getElementById('user_name').value;
+			var PassWord = document.getElementById('user_pwd').value;
+			var PhoneNumber = document.getElementById('phone#').value;
+			var StudentName = document.getElementById('student_name').value;
+			var ImgName = "";
+			var strs = [ ID, MyName, PassWord, PhoneNumber, StudentName ];
+		
+			
+			for (var str in strs) { 
+				if (str.length == 0) {
+					//TODO : Delete the file in the storage
+					return;
+				}
+			}
+			
+			var postData ={
+				ID: ID,
+				MyName: MyName,
+				PassWord: PassWord,
+				PhoneNumber: PhoneNumber,
+				StudentName: StudentName,
+				ImgName: ImgName
+			};
+			
+			var updates = {};
+			updates['/UserInfo/' + ID] = postData;
+			
+			return firebase.database().ref().update(updates);
+		}
+
+		var dbRef = firebase.database().ref();
+		dbRef.on('value');
+
+	</script>
+		
+	</body>
+</html>
