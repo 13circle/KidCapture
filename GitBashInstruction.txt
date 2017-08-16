@@ -1,0 +1,42 @@
+
+This file is written for basic instruction to use Git as a command-line-interface feature in Linux terminal.
+
+
+To configurate username:					git config --global user.name <USERNAME>
+
+To Configurate email address:				git config --global user.email <EMAIL>
+
+To view all configurated settings:			git config --list
+
+To initialize local directory for Git:		git init
+
+To clean out Git sync in local directory:	rm -rf .git  >> Type this command in the local directory where you used 'git init'.
+
+To clone remote Git directory project:		git clone <PROJECT_URL> <PATH>
+
+To add all working files on a stage:		git add -A
+
+To remove files on a stage:					git reset
+
+To look up all files on a stage:			git status
+
+To look up a list of changed files:			git diff
+
+To ignore certain files to be staged:		CREATE/EDIT .gitignore FILE AND ADD THE FILES YOU WANT TO BE IGNORED.
+
+To commit files to a remote directory:		git commit -m <COMMIT_MESSAGE>
+
+To get pull from a master branch:			git pull origin master
+
+To push changes from a master branch:		git push origin master
+
+To get help:								git help [GIT_COMMAND]  OR  git [GIT_COMMAND] --help
+
+
+For more detailed help, visit:
+
+https://www.youtube.com/watch?v=HVsySz-h9r4
+
+
+*** DO NOT REMOVE THIS OR CATEGORIZE AS AN IGNORING FILE BY LISTING IN .gitignore FILE. ***
+
